@@ -1,0 +1,3 @@
+[submodule "pinterest/templates/pinterest/templates/frontend"]
+	path = pinterest/templates/pinterest/templates/frontend
+	url = git@github.com:platzi-pinterest/frontend.git
