@@ -1,0 +1,7 @@
+# Template file .postgress
+# PostgreSQL
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=urevent
+POSTGRES_USER=test
+POSTGRES_PASSWORD=123456
