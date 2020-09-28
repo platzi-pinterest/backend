@@ -2,14 +2,34 @@
 # ------------------------------------------------------------------------------
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
-# Redis
-# ------------------------------------------------------------------------------
-REDIS_URL=redis://redis:6379/0
-
-# Celery
-# ------------------------------------------------------------------------------
 
 # Flower
 CELERY_FLOWER_USER=debug
 CELERY_FLOWER_PASSWORD=debug
+
+# Django
+MAIN_DOMAIN=supermavsters.com
+ALLOWED_HOSTS=supermavsters.com
+DJANGO_ALLOWED_HOSTS=['*']
+
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_DEBUG=False
+DJANGO_SECRET_KEY=Zjo@7!pnqy6p$lo3p2p_t&%kpr$bq*wwyoil1(96uuofo^0(y^&Devs
+
+# Static files arn:aws:s3:::eventup-zdevs
+DJANGO_AWS_STORAGE_BUCKET_NAME=eventup-zdevs
+
+# Admin
+DJANGO_ADMIN_URL=superadmin/
+
+# E-Mail
+MAILGUN_API_KEY=f36292e17e2f13c09cb40a7c62a9602b-4d640632-ffd1b71d
+MAILGUN_DOMAIN=https://api.mailgun.net/v3/sandboxc1c656575a0244c297f817b17918c05f.mailgun.org
+
+# Redis
+REDIS_URL=redis://redis:6379/0
+
+# Flower
+CELERY_FLOWER_USER=AkSCzUUkrubMopHkMlHHIiFnUzKhIidG
+CELERY_FLOWER_PASSWORD=jspxQGdwrs9VbGLmn5FmXRAGqNt5D6osRgqggNJl1JgcdcCYZdCf7Ch0jcgG0nH7
 CELERY_BROKER_URL=redis://localhost:6379/0
