@@ -1,14 +1,17 @@
-from django.urls import path
+"""Users URLs."""
 
-from pinterest.users.views import (
-    user_detail_view,
-    user_redirect_view,
-    user_update_view,
-)
+# Django
+from django.urls import include, path
 
-app_name = "users"
+# Django REST Framework
+from rest_framework.routers import DefaultRouter
+
+# Views
+from .views import user as user_views
+
+router = DefaultRouter()
+router.register(r'users', user_views.UserViewSet, basename='users')
+
 urlpatterns = [
-    path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path('', include(router.urls))
 ]
