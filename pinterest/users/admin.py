@@ -1,27 +1,17 @@
-"""User models admin."""
-
-# Django
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth import admin as auth_admin
+from django.contrib.auth import get_user_model
 
-# Models
-from pinterest.users.models import User, Profile
+from pinterest.users.forms import UserChangeForm, UserCreationForm
 
-
-class CustomUserAdmin(UserAdmin):
-    """User model admin."""
-
-    list_display = ('email', 'username', 'is_staff', 'is_client')
-    list_filter = ('is_client', 'is_staff', 'created', 'modified')
+User = get_user_model()
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    """Profile model admin."""
+@admin.register(User)
+class UserAdmin(auth_admin.UserAdmin):
 
-    list_display = ('user',)
-    search_fields = ('user__username', 'user__email', 'user__name')
-    # list_filter = ('reputation',)
-
-
-admin.site.register(User, CustomUserAdmin)
+    form = UserChangeForm
+    add_form = UserCreationForm
+    fieldsets = (("User", {"fields": ("name",)}),) + auth_admin.UserAdmin.fieldsets
+    list_display = ["username", "name", "is_superuser"]
+    search_fields = ["name"]
