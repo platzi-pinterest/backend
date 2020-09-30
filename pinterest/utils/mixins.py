@@ -18,7 +18,6 @@ class CustomCreateModelMixin:
     def create(self, request, *args, **kwargs):
         """Handle HTTP POST request."""
         serializer = self.get_serializer(data=request.data)
-
         # Validate Model
         if not serializer.is_valid():
             data = self.custom_actions.set_response(status.HTTP_400_BAD_REQUEST,
