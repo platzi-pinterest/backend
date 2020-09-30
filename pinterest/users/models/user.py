@@ -3,7 +3,6 @@
 # Django
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -17,8 +16,8 @@ class User(GeneralModel, AbstractUser):
     Extend from Django's Abstract User, change the username field
     to email and add some extra fields.
     """
-    image = models.ImageField(upload_to='users/pictures', blank=True, null=True)
 
+    # Min Data
     email = models.EmailField(
         'email address',
         unique=True,
@@ -27,6 +26,9 @@ class User(GeneralModel, AbstractUser):
         }
     )
 
+    age = models.IntegerField('Age of the user', default=15, help_text='Age of the user 10 > x > 100.')
+
+    # Data Complement
     is_client = models.BooleanField(
         'client',
         default=True,
@@ -38,13 +40,13 @@ class User(GeneralModel, AbstractUser):
 
     is_verified = models.BooleanField(
         'verified',
-        default=True,
+        default=False,
         help_text='Set to true when the user have verified its email address.'
     )
 
-    #: First and last name do not cover name patterns around the globe
-    name = CharField(_("Name of User"), blank=True, max_length=255)
-
+    # Name
+    first_name = models.CharField(_("Name of User"), blank=True, null=True, max_length=30)
+    last_name = models.CharField(_("Lastnme of User"), blank=True, null=True, max_length=30)
 
     # Fields Elements
     USERNAME_FIELD = 'email'

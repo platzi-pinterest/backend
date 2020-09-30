@@ -36,6 +36,7 @@ def gen_verification_token(user):
 @task(name='send_confirmation_email', max_retries=3)
 def send_confirmation_email(user_pk):
     """Send account verification link to given user."""
+    print(settings)
     user = User.objects.get(pk=user_pk)
     verification_token = gen_verification_token(user)
     subject = 'Welcome @{}! Verify your account to start using Event Up'.format(user.username)

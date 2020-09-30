@@ -314,6 +314,11 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+# Domain
+MAIN_DOMAIN = env.list('MAIN_DOMAIN', default=['localhost:8000'])
+
+# Cors
 CORS_ORIGIN_ALLOW_ALL = True
 # # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 # CORS_ORIGIN_WHITELIST = [

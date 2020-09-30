@@ -1,0 +1,23 @@
+<style>#body-email{margin:auto;max-width:800px;text-align:center}#header{margin:auto;background-color:#125e68;height:200px;display:grid}#header h2{color:#fff;margin:auto}img{margin:auto}#content{margin:auto;max-width:600px}.space-object{margin:3rem}.wrap-text{margin:3rem auto;word-wrap:break-word}.btn-main{background-color:#ffd43b;color:#fff;padding:10px 100px;cursor:pointer;box-shadow:inset 0 0 20px rgba(255,255,255,0);border:0 solid;outline:1px solid;outline-color:rgba(255,255,255,0.5);outline-offset:0;text-shadow:none;text-decoration:none}.btn-main:hover{border:1px solid;box-shadow:inset 0 0 20px rgba(255,255,255,0.5),0 0 20px rgba(255,255,255,0.2);outline-color:rgba(255,255,255,0);outline-offset:15px;text-shadow:1px 1px 2px #427388}@media only screen and (max-width: 480px){.space-object{margin:2.5rem}}</style>
+<div id="body-email">
+  <section id="header">
+    <img src="//i.postimg.cc/25Mfd7JT/default.png" width="200px"/>
+    <h2>Welcome @{{ user.username }}!</h2>
+  </section>
+  <section id="content">
+    <p class="space-object">
+      Before you start using <b>Event Up</b> we need you to do one last thing.
+      Please visit the following link
+    </p>
+    <a href="//{{ domain }}/users/verify?token={{ token }}" class="btn-main">Here</a>
+    <p class="space-object">
+      If the link don't work, open the next URL:
+      </p>
+    <code class="wrap-text">
+        http://{{ domain }}/users/verify?token={{ token }}
+    </code>
+    <br />
+    <small>Zdevs - EventUp</small>
+  </section>
+</div>
+
