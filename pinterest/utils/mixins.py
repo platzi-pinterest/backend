@@ -4,7 +4,7 @@
 from rest_framework import status
 
 # Utils / Response
-from pinterest.utils.responses import CustomActions
+from pinterest.utils.response import CustomActions
 
 # Make Actions
 custom_actions = CustomActions()
