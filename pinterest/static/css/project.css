@@ -11,3 +11,25 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+.main-color {
+  color: #e60023 !important;
+}
+
+.center-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.fit-content {
+  width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+  width: -moz-max-content;    /* Firefox/Gecko */
+  width: -webkit-max-content; /* Chrome */
+  width: fit-content;
+}
+
+.container {
+  height: 100vh;
+}
