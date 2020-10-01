@@ -44,7 +44,10 @@ class PinViewSet(
 
     def get_permissions(self):
         """Assign permission based on action."""
-        permissions = [IsAuthenticated]
+        if self.action in ['create', 'update']:
+            permissions = [IsAuthenticated]
+        else:
+            permissions = []
         return [permission() for permission in permissions]
 
     def get_serializer_class(self):
