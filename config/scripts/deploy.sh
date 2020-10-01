@@ -4,7 +4,7 @@
 # Flags: sh deploy.sh update/clean/migrate
 
 # Config elements
-PROJECT='eventup'
+PROJECT='pinterest'
 COMMAND=$1
 
 BASE_NAME=$(basename $0)
