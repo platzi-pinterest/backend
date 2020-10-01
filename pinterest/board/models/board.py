@@ -19,6 +19,11 @@ class Board(GeneralModel):
     secret = models.BooleanField('the board is secret?', default=False)
 
     # Reference to User (Belongs)
+    user = models.ForeignKey(
+        to="users.User",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
     def __str__(self):
         return str(self.name)

@@ -21,6 +21,7 @@ class BoardModelSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'user',
             'date',
             'secret'
         )
@@ -31,4 +32,5 @@ class CreateUpdateBoardSerializer(BoardModelSerializer):
 
     def create(self, data):
         # Get uiser context
-        return Board.objects.create(**data)
+        user = self.context['request'].user
+        return Board.objects.create(**data, user=user)
