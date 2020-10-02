@@ -87,7 +87,7 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
                 'user': UserModelSerializer(user).data,
                 'authToken': token
             }
-            data = custom_actions.set_response(status.HTTP_201_CREATED, 'Login Success!', content)
+            data = custom_actions.set_response(status.HTTP_200_OK, 'Login Success!', content)
         # Get Status
         return custom_actions.custom_response(data)
 
