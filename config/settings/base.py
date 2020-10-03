@@ -76,9 +76,10 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "pinterest.users.apps.UsersConfig",
+    # Your stuff: custom apps go here
     "pinterest.board.apps.BoardAppConfig",
     "pinterest.category.apps.CategoryAppConfig",
-    # Your stuff: custom apps go here
+    "pinterest.pin.apps.PinAppConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -321,7 +322,10 @@ CORS_URLS_REGEX = r"^/api/.*$"
 MAIN_DOMAIN = env.list('MAIN_DOMAIN', default=['localhost:8000'])
 
 # Cors
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+# If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
 # # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:8000',

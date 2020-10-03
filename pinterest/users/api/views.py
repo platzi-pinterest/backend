@@ -10,7 +10,8 @@ from pinterest.users.api.serializers import (
     AccountVerificationSerializer,
     UserLoginSerializer,
     UserModelSerializer,
-    UserSignUpSerializer
+    UserSignUpSerializer,
+    UserRecoverySerializer
 )
 
 # Complements
@@ -32,6 +33,24 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+    # users/recovery
+    @action(detail=False, methods=['post'])
+    def recovery(self, request):
+        """Handle HTTP POST request."""
+        # Make Serializer and Set Data
+        serializer = UserRecoverySerializer(data=request.data)
+        # Validate Model
+        if not serializer.is_valid():
+            data = custom_actions.set_response(status.HTTP_400_BAD_REQUEST, 'Error to Recovery', serializer.errors)
+        else:
+            # Save Object
+            user = serializer.save()
+            # Return User
+            content = {"email": UserModelSerializer(user).data.get('email')}
+            data = custom_actions.set_response(status.HTTP_200_OK, 'Recovery Success!, check your email', content)
+        # Get Status
+        return custom_actions.custom_response(data)
 
     # users/signup
     @action(detail=False, methods=['post'])
@@ -87,7 +106,7 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
                 'user': UserModelSerializer(user).data,
                 'authToken': token
             }
-            data = custom_actions.set_response(status.HTTP_201_CREATED, 'Login Success!', content)
+            data = custom_actions.set_response(status.HTTP_200_OK, 'Login Success!', content)
         # Get Status
         return custom_actions.custom_response(data)
 
