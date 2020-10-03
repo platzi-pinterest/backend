@@ -11,13 +11,15 @@ from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
 
 # Tasks
-from pinterest.taskapp.tasks import send_confirmation_email
+from pinterest.taskapp.tasks import send_confirmation_email, send_verification_email
 
 # Models
 from pinterest.users.models import Profile
 
 # Utilities
 import jwt
+import random
+import hashlib
 
 # Get Model
 User = get_user_model()
@@ -46,6 +48,36 @@ class UserModelSerializer(serializers.ModelSerializer):
         )
 
 
+class UserRecoverySerializer(serializers.Serializer):
+    """User recovery serializer.
+
+    Handle recovery data validation and user/profile creation.
+    """
+
+    email = serializers.EmailField()
+
+    def validate(self, data):
+        """Check credentials."""
+        try:
+            user = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError('The email not exist')
+        if not user:
+            raise serializers.ValidationError('Invalid email')
+        self.context['user'] = user
+        return data
+
+    def create(self, data):
+        """Handle user and profile creation."""
+        # Make User
+        code = (random.randint(1000, 9999))
+        user = User.objects.get(pk=self.context['user'].pk)
+        new = str(code).strip()
+        hs = hashlib.sha1(new.encode()).hexdigest()
+        user.password = hs
+        user.save()
+        send_verification_email.delay(email=data['email'], code=code)
+        return user
 class UserSignUpSerializer(serializers.Serializer):
     """User sign up serializer.
 

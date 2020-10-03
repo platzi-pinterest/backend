@@ -39,13 +39,27 @@ def send_confirmation_email(user_pk):
     print(settings)
     user = User.objects.get(pk=user_pk)
     verification_token = gen_verification_token(user)
-    subject = 'Welcome @{}! Verify your account to start using Event Up'.format(user.username)
-    from_email = 'Event Up <noreply@pinterest.codes>'
+    subject = 'Welcome @{}! Verify your account to start using Pinterest'.format(user.username)
+    from_email = 'Pinterest <noreply@pinterest.codes>'
     content = render_to_string(
         'emails/users/account_verification.html',
         {'token': verification_token, 'user': user, 'domain': settings.MAIN_DOMAIN[0]}
     )
     msg = EmailMultiAlternatives(subject, content, from_email, [user.email])
+    msg.attach_alternative(content, "text/html")
+    msg.send()
+
+@task(name='send_verification_email', max_retries=3)
+def send_verification_email(email, code):
+    """Send account verification link to given user."""
+    print(settings)
+    subject = 'Welcome! Verify your new password to start using Pinterest'
+    from_email = 'Pinterest <noreply@pinterest.codes>'
+    content = render_to_string(
+        'emails/users/account_check.html',
+        {'code': code}
+    )
+    msg = EmailMultiAlternatives(subject, content, from_email, [email])
     msg.attach_alternative(content, "text/html")
     msg.send()
 
