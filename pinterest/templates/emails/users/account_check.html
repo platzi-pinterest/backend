@@ -2,19 +2,15 @@
 <div id="body-email">
   <section id="header">
     <img src="https://androidzeal.com/wp-content/uploads/2019/07/Pinterest.jpg" width="200px"/>
-    <h2>Welcome @{{ user.username }}!</h2>
+    <h2>Welcome Again!</h2>
   </section>
   <section id="content">
     <p class="space-object">
       Before you start using <b>Pinterest</b> we need you to do one last thing.
-      Please visit the following link
+      Please remeber this new password
     </p>
-    <a href="//{{ domain }}/users/verify?token={{ token }}" class="btn-main">Here</a>
-    <p class="space-object">
-      If the link don't work, open the next URL:
-      </p>
     <code class="wrap-text">
-        http://{{ domain }}/users/verify?token={{ token }}
+        {{ code }}
     </code>
     <br />
     <small>Mavster - pinterest</small>
